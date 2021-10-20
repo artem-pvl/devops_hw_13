@@ -19,7 +19,6 @@
       - cidr_ip: 0.0.0.0/0
         from_port: -1
         to_port: -1
-        group_name: security_group
 
 - name: Create EC2 instance
   amazon.aws.ec2:
