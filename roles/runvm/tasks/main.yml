@@ -21,12 +21,12 @@
 
 - name: Create EC2 instance
   amazon.aws.ec2_instance:
+    name: buildserver
     image_id: ami-0f7cd40eac2214b37
-    instance_ids:
-      - webserver
-      - buildserver
     instance_type: "t2.micro"
     key_name: ec2conveer
     security_group: securitygroup
     state: running
+    network:
+      assign_public_ip: yes
 ...
