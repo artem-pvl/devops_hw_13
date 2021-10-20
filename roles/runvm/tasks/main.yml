@@ -23,7 +23,7 @@
   amazon.aws.ec2:
     assign_public_ip: yes
     count: 2
-    group_id: security_group
+    group: security_group
     image: ami-0f7cd40eac2214b37
     instance_type: t2.micro
     key_name: ec2conveer
