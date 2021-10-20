@@ -1,5 +1,7 @@
 ---
-- hosts: local
+- name: Create aws hosts
+  hosts: local
+  become: yes
   roles:
     - role: runvm
 
