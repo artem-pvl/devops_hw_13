@@ -9,7 +9,18 @@
 - name: Save private key
   copy: content="{{ ec2_key_result.key.private_key }}" dest="./id_rsa" mode=0600
   when: ec2_key_result.changed
-  
+
+- name: Create security group
+  amazon.aws.ec2_group:
+    description: grant all to servers
+    name: security_group
+    state: present
+    rules:
+      - cidr_ip: 0.0.0.0/0
+        from_port: -1
+        to_port: -1
+        group_name: security_group
+
 - name: Create EC2 instance
   amazon.aws.ec2:
     assign_public_ip: yes
