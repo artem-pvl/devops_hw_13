@@ -7,7 +7,7 @@
     - role: runvm
 
 - name: Build prod docker image
-  hosts: '{{ buildserver_result.instances.network_interfaces.association.public_ip }}'
+  hosts: build
   become: yes
   roles:
     - role: common
