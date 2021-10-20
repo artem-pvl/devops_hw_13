@@ -16,8 +16,8 @@
     name: security_group
     state: present
     rules:
-      - cidr_ip: 0.0.0.0/0
-        from_port: -1
+      - proto: all
+        cidr_ip: 0.0.0.0/0
 
 - name: Create EC2 instance
   amazon.aws.ec2:
