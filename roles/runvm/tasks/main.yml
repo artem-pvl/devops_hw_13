@@ -22,10 +22,4 @@
 - name: Create EC2 instance
   amazon.aws.ec2:
     assign_public_ip: yes
-    count: 1
-    group: security_group
-    image: ami-0f7cd40eac2214b37
-    instance_type: t2.micro
-    key_name: ec2conveer
-    state: running
 ...
