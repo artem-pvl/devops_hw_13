@@ -35,7 +35,8 @@
   local_action: lineinfile 
                 dest="./hosts" 
                 insertafter="[build]"
-                line="{{ buildserver_result.instances.network_interfaces.association.public_ip }}"
+                line="{{ buildserver_result['instances']['network_interfaces']['association']['public_ip'] }}"
+                # line="{{ buildserver_result.instances.network_interfaces.association.public_ip }}"
   # with_items: "{{ ec2.instances }}"
 
 - name: Create EC2 instance for webserver
