@@ -13,7 +13,7 @@
 - name: Create security group
   amazon.aws.ec2_group:
     description: grant all to servers
-    name: security_group
+    name: securitygroup
     state: present
     rules:
       - proto: all
@@ -21,5 +21,12 @@
 
 - name: Create EC2 instance
   amazon.aws.ec2_instance:
-    assign_public_ip: yes
+    image_id: ami-0f7cd40eac2214b37
+    instance_ids:
+      - webserver
+      - buildserver
+    instance_type: "t2.micro"
+    key_name: ec2conveer
+    security_group: securitygroup
+    state: running
 ...
