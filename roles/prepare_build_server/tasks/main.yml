@@ -1,0 +1,19 @@
+---
+# tasks file for buildserver
+- name: Copy Dockerfile file for buld_server image
+  ansible.builtin.copy:
+    src: Dockerfile
+    dest: ~/
+    force: yes
+
+- name: Create build_server image
+  community.docker.docker_image:
+    build:
+      path: ~/
+      rm: yes
+      pull: yes
+    name: "{{ build_server_name | default('build_server') }}"
+    source: build
+    state: present
+    tag: "{{ build_server_version | default('latest') }}"
+...
