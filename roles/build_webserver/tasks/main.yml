@@ -15,7 +15,7 @@
 - name: Build war file from source
   community.docker.docker_container:
     # image: "{{ build_server_name | default('build_server') }}"
-    image: "{{ [dockerhub_username, build_server_name] | join('/') | default('artempvl/build_server') }}"
+    image: "{{ [ [dockerhub_username, build_server_name] | join('/'), build_server_version | join(':') ] | default('artempvl/build_server') }}"
     name: "{{ build_server_name | default('build_server') }}"
     pull: true
     auto_remove: yes
