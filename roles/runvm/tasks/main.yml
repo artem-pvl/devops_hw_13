@@ -43,7 +43,7 @@
 
 - name: Adding buildserver host to inventory
   add_host:
-    name: '{{ buildserver_info.instances[0].public_ip_address }}'
+    name: "{{ buildserver_info.instances[0].public_ip_address }}"
     groups: build
 
 - name: Add buildserver host to ssh config
@@ -71,7 +71,7 @@
 
 - name: Adding webserver host to inventory
   add_host:
-    name: '{{ webserver_info.instances[0].public_ip_address }}'
+    name: "{{ webserver_info.instances[0].public_ip_address }}"
     groups: web
 
 - name: Add webserver host to ssh config
