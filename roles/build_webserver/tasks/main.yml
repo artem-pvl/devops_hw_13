@@ -6,8 +6,9 @@
     force: yes
     dest: /source
     repo: "{{ source_repository_url }}"
-
-- nameofbuild: "{{ [dockerhub_username, build_server_name] | join('/') }}"
+- name: set var
+  vars:
+    nameofbuild: "{{ [dockerhub_username, build_server_name] | join('/') }}"
 - name: Build war file from source
   community.docker.docker_container:
     # image: "{{ build_server_name | default('build_server') }}"
