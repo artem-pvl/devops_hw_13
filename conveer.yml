@@ -3,12 +3,14 @@
   hosts: 127.0.0.1
   connection: local
   become: yes
+  become_user: root
   roles:
     - role: runvm
 
 - name: Build prod docker image
   hosts: build
   become: yes
+  become_user: root
   roles:
     - role: common
     - role: build_webserver
@@ -24,6 +26,7 @@
 - name: Run web server
   hosts: web
   become: yes
+  become_user: root
   roles:
     - role: webserver
       vars:
