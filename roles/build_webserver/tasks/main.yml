@@ -7,11 +7,6 @@
     dest: /source
     repo: "{{ source_repository_url }}"
 
-- name: Login into docker hub
-  community.docker.docker_login:
-    username: "{{ dockerhub_username }}"
-    password: "{{ dockerhub_token }}"
-
 - name: Build war file from source
   community.docker.docker_container:
     # image: "{{ build_server_name | default('build_server') }}"
