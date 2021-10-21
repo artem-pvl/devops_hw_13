@@ -31,11 +31,14 @@
       assign_public_ip: yes
   register: buildserver_result
 
-- name: Gather instances
+- name: Gather instances information
   community.aws.ec2_instance_info:
-  register: i_info
+    filters:
+      instance-state-name: [ "running"]
+  register: ec2_node_info
+
 - name: Echo
-  copy: content="{{ i_info }}" dest="./log.i"
+  copy: content="{{ ec2_node_info }}" dest="./log.i"
   
 
 - name: Add the newly created EC2 instance(s) to the local host group (located inside the directory)
