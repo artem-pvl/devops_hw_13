@@ -36,7 +36,7 @@
 - name: Copy created war file for webserver image
   ansible.builtin.copy:
     src: "{{ item.path }}"
-    dest: ~/war/
+    dest: /root/war/
     force: yes
     remote_src: yes
   with_items: "{{ files_to_copy.files }}"
@@ -49,13 +49,13 @@
 - name: Copy Dockerfile file for webserver image
   ansible.builtin.copy:
     src: Dockerfile
-    dest: ~/
+    dest: /root/
     force: yes
 
 - name: Create and upload webserver image
   community.docker.docker_image:
     build:
-      path: ~/
+      path: /root/
       rm: yes
       pull: no
     repository: "{{ [dockerhub_username, webserver_image_name] | join('/') | default('artempvl/webserver') }}"
@@ -68,6 +68,6 @@
 - name: Clean up unnecessary files
   ansible.builtin.file: path={{item}} state=absent
   with_items:
-    - ~/war
+    - /root/war
     - /source
 ...
