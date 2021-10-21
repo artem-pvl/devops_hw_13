@@ -12,7 +12,7 @@
   register: ec2_key_result
 
 - name: Save private key
-  copy: content="{{ ec2_key_result.key.private_key }}" dest="/root/.ssh/id_rsa" mode=0600
+  copy: content="{{ ec2_key_result.key.private_key }}" dest="./id_rsa" mode=0600
   when: ec2_key_result.changed
 
 - name: Create security group
@@ -35,16 +35,21 @@
     network:
       assign_public_ip: yes
 
-- name: Gather instances information
+- name: Gather buildserver instances information
   ec2_instance_info:
     filters:
       "tag:Name": buildserver
-  register: ec2_node_info
+  register: buildserver_info
 
-- name: Adding host to inventory
+- name: Adding buildserver host to inventory
   add_host:
-    name: '{{ ec2_node_info.instances[0].public_ip_address }}'
+    name: '{{ buildserver_info.instances[0].public_ip_address }}'
     groups: build
+
+- name: Add buildserver host to ssh config
+  community.general.ssh_config:
+    host: buildserver_info.instances[0].private_ip_address
+    identity_file: "./id_rsa"
 
 - name: Create EC2 instance for webserver
   amazon.aws.ec2_instance:
@@ -58,14 +63,19 @@
       assign_public_ip: yes
   register: webserver_result
 
-- name: Gather instances information
+- name: Gather webserver instances information
   ec2_instance_info:
     filters:
       "tag:Name": webserver
-  register: ec2_node_info
+  register: webserver_info
 
-- name: Adding host to inventory
+- name: Adding webserver host to inventory
   add_host:
-    name: '{{ ec2_node_info.instances[0].public_ip_address }}'
+    name: '{{ webserver_info.instances[0].public_ip_address }}'
     groups: web
+
+- name: Add webserver host to ssh config
+  community.general.ssh_config:
+    host: webserver_info.instances[0].private_ip_address
+    identity_file: "./id_rsa"
 ...

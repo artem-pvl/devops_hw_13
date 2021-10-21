@@ -9,6 +9,8 @@
 - name: Build prod docker image
   hosts: build
   become: yes
+  become_user: root
+
   roles:
     - role: common
     - role: build_webserver
