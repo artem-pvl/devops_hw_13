@@ -38,11 +38,11 @@
   register: ec2_node_info
 
 - name: Echo
-  copy: content="{{ ec2_node_info.instances[0].public_ip }}" dest="./log.i"
+  copy: content="{{ ec2_node_info.instances[0].public_ip_address }}" dest="./log.i"
 
 - name: Adding host to inventory
   add_host:
-    name: '{{ ec2_node_info.instances[0].public_ip }}'
+    name: '{{ ec2_node_info.instances[0].public_ip_address }}'
     groups: build
 
 - name: Create EC2 instance for webserver
