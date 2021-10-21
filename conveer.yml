@@ -21,7 +21,9 @@
         webserver_image_name: webserver1
         webserver_version: 0.0.1
 
-- hosts: web
+- name: Run web server
+  hosts: web
+  become: yes
   roles:
     - role: webserver
       vars:
