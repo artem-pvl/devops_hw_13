@@ -33,6 +33,11 @@
    patterns: "*.war"
   register: files_to_copy
 
+- name: Create war directory
+  file:
+    path: /root/war
+    state: directory
+
 - name: Copy created war file for webserver image
   ansible.builtin.copy:
     src: "{{ item.path }}"
