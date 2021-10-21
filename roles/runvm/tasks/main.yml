@@ -34,7 +34,7 @@
 - name: Gather instances information
   ec2_instance_info:
     filters:
-      instance-state-name: [ "running"]
+      tag: [ "Name: buildserver"]
   register: ec2_node_info
 
 - name: Echo
