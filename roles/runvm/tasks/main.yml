@@ -3,6 +3,10 @@
 - name: Create a new EC2 key
   amazon.aws.ec2_key:
     name: ec2conveer
+    state: absent
+- name: Create a new EC2 key
+  amazon.aws.ec2_key:
+    name: ec2conveer
     state: present
     force: yes
   register: ec2_key_result
