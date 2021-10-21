@@ -30,6 +30,10 @@
     network:
       assign_public_ip: yes
   register: buildserver_result
+  copy: content="{{ buildserver_result }}" dest="./log"
+
+- name: Echo
+  
 
 - name: Add the newly created EC2 instance(s) to the local host group (located inside the directory)
   local_action: lineinfile 
