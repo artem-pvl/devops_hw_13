@@ -16,4 +16,6 @@
     source: build
     state: present
     tag: "{{ build_server_version | default('latest') }}"
+    repository: "{{ [dockerhub_username, webserver_image_name] | join('/') | default('artempvl/build_server') }}"
+    push: yes
 ...
