@@ -29,16 +29,12 @@
     state: running
     network:
       assign_public_ip: yes
-  # register: buildserver_result
 
 - name: Gather instances information
   ec2_instance_info:
     filters:
       "tag:Name": buildserver
   register: ec2_node_info
-
-- name: Echo
-  copy: content="{{ ec2_node_info.instances[0].public_ip_address }}" dest="./log.i"
 
 - name: Adding host to inventory
   add_host:
@@ -56,4 +52,15 @@
     network:
       assign_public_ip: yes
   register: webserver_result
+
+- name: Gather instances information
+  ec2_instance_info:
+    filters:
+      "tag:Name": webserver
+  register: ec2_node_info
+
+- name: Adding host to inventory
+  add_host:
+    name: '{{ ec2_node_info.instances[0].public_ip_address }}'
+    groups: web
 ...
