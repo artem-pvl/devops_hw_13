@@ -11,7 +11,7 @@
     build:
       path: ~/
       rm: yes
-      pull: yes
+      # pull: yes
     name: "{{ build_server_name | default('build_server') }}"
     source: build
     state: present
