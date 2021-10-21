@@ -53,6 +53,19 @@
     identity_file: "~/id_rsa"
     remote_user: ubuntu
 
+- name: Check SSH known_hosts for {{ buildserver_info.instances[0].public_ip_address }}
+  local_action: shell ssh-keygen -F {{ buildserver_info.instances[0].public_ip_address }}
+  register: checkForKnownHostsEntry
+  failed_when: false
+  changed_when: false
+  ignore_errors: yes
+
+- name: Add {{ webserver_info.instances[0].public_ip_address }} to SSH known hosts automatically
+  when: checkForKnownHostsEntry.rc == 1
+  changed_when: checkForKnownHostsEntry.rc == 1
+  set_fact:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
 - name: Create EC2 instance for webserver
   amazon.aws.ec2_instance:
     name: webserver
@@ -83,13 +96,14 @@
     identity_file: "~/id_rsa"
     remote_user: ubuntu
 
-- name: Check SSH known_hosts for {{ inventory_hostname }}
-  local_action: shell ssh-keygen -F {{ inventory_hostname }}
+- name: Check SSH known_hosts for {{ webserver_info.instances[0].public_ip_address }}
+  local_action: shell ssh-keygen -F {{ webserver_info.instances[0].public_ip_address }}
   register: checkForKnownHostsEntry
   failed_when: false
   changed_when: false
   ignore_errors: yes
-- name: Add {{ inventory_hostname }} to SSH known hosts automatically
+
+- name: Add {{ webserver_info.instances[0].public_ip_address }} to SSH known hosts automatically
   when: checkForKnownHostsEntry.rc == 1
   changed_when: checkForKnownHostsEntry.rc == 1
   set_fact:
