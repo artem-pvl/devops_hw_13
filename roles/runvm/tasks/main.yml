@@ -49,7 +49,7 @@
 - name: Add buildserver host to ssh config
   community.general.ssh_config:
     host: buildserver_info.instances[0].private_ip_address
-    identity_file: "./id_rsa"
+    identity_file: "id_rsa"
 
 - name: Create EC2 instance for webserver
   amazon.aws.ec2_instance:
@@ -77,5 +77,5 @@
 - name: Add webserver host to ssh config
   community.general.ssh_config:
     host: webserver_info.instances[0].private_ip_address
-    identity_file: "./id_rsa"
+    identity_file: "id_rsa"
 ...
