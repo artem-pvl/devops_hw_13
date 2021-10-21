@@ -48,7 +48,7 @@
 
 - name: Add buildserver host to ssh config
   community.general.ssh_config:
-    host: "{{ buildserver_info.instances[0].private_ip_address }}"
+    host: "{{ buildserver_info.instances[0].public_ip_address }}"
     identity_file: "~/id_rsa"
 
 - name: Create EC2 instance for webserver
@@ -76,6 +76,6 @@
 
 - name: Add webserver host to ssh config
   community.general.ssh_config:
-    host: "{{ webserver_info.instances[0].private_ip_address }}"
+    host: "{{ webserver_info.instances[0].public_ip_address }}"
     identity_file: "~/id_rsa"
 ...
