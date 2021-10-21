@@ -39,6 +39,7 @@
   ec2_instance_info:
     filters:
       "tag:Name": buildserver
+      instance-state-name: [ "running" ]
   register: buildserver_info
 
 - name: Adding buildserver host to inventory
@@ -68,6 +69,7 @@
   ec2_instance_info:
     filters:
       "tag:Name": webserver
+      instance-state-name: [ "running" ]
   register: webserver_info
 
 - name: Adding webserver host to inventory
