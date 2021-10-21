@@ -5,6 +5,8 @@
   become: yes
   become_user: root
   roles:
+    - role: common
+    - role: prepare_ansible
     - role: runvm
 
 - name: Build prod docker image
