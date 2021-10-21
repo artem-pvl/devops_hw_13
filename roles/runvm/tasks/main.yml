@@ -32,7 +32,7 @@
   register: buildserver_result
 
 - name: Gather instances information
-  community.aws.ec2_instance_info:
+  community.aws.ec2_instance_facts:
     filters:
       instance-state-name: [ "running"]
   register: ec2_node_info
