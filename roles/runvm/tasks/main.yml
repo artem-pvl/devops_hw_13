@@ -50,6 +50,7 @@
   community.general.ssh_config:
     host: "{{ buildserver_info.instances[0].public_ip_address }}"
     identity_file: "~/id_rsa"
+    remote_user: ubuntu
 
 - name: Create EC2 instance for webserver
   amazon.aws.ec2_instance:
@@ -78,4 +79,5 @@
   community.general.ssh_config:
     host: "{{ webserver_info.instances[0].public_ip_address }}"
     identity_file: "~/id_rsa"
+    remote_user: ubuntu
 ...
