@@ -7,8 +7,8 @@
     dest: /source
     repo: "{{ source_repository_url }}"
 
+- nameofbuild: "{{ [dockerhub_username, build_server_name] | join('/') }}"
 - name: Build war file from source
-  nameofbuild: "{{ [dockerhub_username, build_server_name] | join('/') }}"
   community.docker.docker_container:
     # image: "{{ build_server_name | default('build_server') }}"
     image: "{{ [nameofbuild, build_server_version] | join(':') | default('artempvl/build_server') }}"
