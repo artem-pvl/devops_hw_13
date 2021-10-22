@@ -5,7 +5,6 @@
   become: yes
   become_user: root
   roles:
-    - role: common
     - role: runvm
 
 - name: Build prod docker image
